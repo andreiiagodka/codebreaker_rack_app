@@ -1,0 +1,40 @@
+!!!
+%html.mdl-js{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    %link{:href => "assets/favicon.ico", :rel => "icon"}/
+    %link{:href => "assets/css/bootstrap.min.css", :rel => "stylesheet"}/
+    %link{:href => "/assets/css/styles.css", :rel => "stylesheet"}/
+    %script{:src => "assets/js/jquery.min.js"}
+    %script{:src => "assets/js/bootstrap.min.js"}
+    %title Codebreaker Web
+  %body
+    %section#introduction
+      .container
+        .row.fill-viewport.align-items-center.justify-content-center
+          .col-12.col-md-6
+            .row
+              .col-md-auto
+                %h1.text-white.title Codebreaker 2018
+            .row
+              %p.lead.text-white-70
+                Try to guess 4-digit number, that consists of numbers in a range from 1 to 6.
+            %hr.mb-4/
+            %form{:action => "", :method => "post"}
+              .form-group
+                %label.lead.label{:for => "player_name"} Player's name:
+                %input#player_name.form-control{:autofocus => "", :name => "player_name", :pattern => "^[\\w\\u0400-\\u04ff]{3,20}$", :placeholder => "Your name", :required => ""}/
+              .form-group
+                %label.lead.label{:for => "level"} Game level:
+                %select.custom-select{:name => "level", :required => ""}
+                  %option{:value => ""} Choose game level...
+                  %option{:value => "simple"} Simple
+                  %option{:value => "middle"} Middle
+                  %option{:value => "hard"} Hard
+              %hr.mb-4/
+              %button.btn.btn-primary.btn-lg{:type => "submit"}
+                Start the game!
+              %span.float-right
+                %a.btn.btn-warning.btn-lg{:href => "#", :role => "button"} Rules
+                %a.btn.btn-success.btn-lg{:href => "#", :role => "button"} Statistics

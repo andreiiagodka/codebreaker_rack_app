@@ -1,0 +1,48 @@
+!!!
+%html.mdl-js{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    %link{:href => "assets/favicon.ico", :rel => "icon"}/
+    %link{:href => "assets/css/bootstrap.min.css", :rel => "stylesheet"}/
+    %link{:href => "assets/css/styles.css", :rel => "stylesheet"}/
+    %script{:src => "assets/js/jquery.min.js"}
+    %script{:src => "assets/js/bootstrap.min.js"}
+    %title Codebreaker Web
+  %body
+    %section#introduction
+      .container
+        .row.fill-viewport.align-items-center.justify-content-center
+          .col-12.col-md-6
+            .row
+              .col-md-auto
+                %h1.text-white.title.inline-block Codebreaker 2018
+            .row
+              .col.button
+                %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
+                  Level:
+                  %span.badge.badge-light
+                    Middle
+                %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
+                  Attempts Left:
+                  %span.badge.badge-light
+                    0/8
+                %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
+                  Hints Left:
+                  %span.badge.badge-light
+                    1/3
+            %hr.mb-4/
+            .row
+              .text-center
+                .text-center
+                  %h3.text-white
+                    Oops, NAME! You lose the game!
+                  %h4.text-white
+                    The code was
+                    %strong 1553
+                %img.img-fluid{:alt => "You lose the game!", :src => "assets/images/lost.gif"}/
+            %hr.mb-4/
+            %a.btn.btn-primary.btn-lg{:href => "#", :role => "button"}
+              Play again!
+            %a.btn.btn-success.btn-lg.float-right{:href => "#", :role => "button"}
+              Statistics

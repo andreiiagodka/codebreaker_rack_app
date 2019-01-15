@@ -1,9 +1,6 @@
-require 'terminal-table'
-require 'i18n'
-require 'codebreaker'
+require_relative 'autoload'
 
-require_relative 'config/i18n'
-
-require_relative './lib/codebreaker'
+use Rack::Reloader
+use Rack::Static, urls: ['/assets'], root: './'
 
 run CodebreakerWeb

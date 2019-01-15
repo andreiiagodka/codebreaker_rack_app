@@ -1,0 +1,56 @@
+!!!
+%html.mdl-js{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    %link{:href => "assets/favicon.ico", :rel => "icon"}/
+    %link{:href => "assets/css/bootstrap.min.css", :rel => "stylesheet"}/
+    %link{:href => "assets/css/styles.css", :rel => "stylesheet"}/
+    %script{:src => "assets/js/jquery.min.js"}
+    %script{:src => "assets/js/bootstrap.min.js"}
+    %title Codebreaker Web
+  %body
+    %section#introduction
+      .container
+        .row.fill-viewport.align-items-center.justify-content-center
+          .col-12.col-md-6
+            .row
+              .col-md-auto
+                %h1.text-white.title Codebreaker 2018
+            %p.lead.text-white-70
+              Hello, test!
+              Try to guess 4-digit number, that consists of numbers in a range from 1 to 6.
+            %hr.mb-4/
+            .row
+              .col.button
+                %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
+                  Level:
+                  %span.badge.badge-light
+                    Simple
+              .col.text-center.button
+                %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
+                  Attempts:
+                  %span.badge.badge-light 4
+              .col.button
+                %button.btn.btn-primary.float-right{:type => "button"}
+                  Hints:
+                  %span.badge.badge-light 1
+            %hr.mb-4/
+            %form{:action => "http://localhost:9292/submit_answer", :method => "post"}
+              .form-group
+                %input.form-control.guess_input{:autocomplete => "off", :name => "number", :pattern => "^[1-6]{4}$", :placeholder => "1234", :required => ""}/
+              .form-group.guess_markers_list
+                #guess_marker
+                  %button.btn.btn-success.marks{:disabled => "disabled", :type => "button"} +
+                  %button.btn.btn-primary.marks{:disabled => "disabled", :type => "button"} -
+                  %button.btn.btn-danger.marks{:disabled => "disabled", :type => "button"} x
+                  %button.btn.btn-danger.marks{:disabled => "disabled", :type => "button"} x
+              %hr.mb-4/
+              %button.btn.btn-primary.btn-lg{:type => "submit"}
+                Submit
+              %a.btn.btn-warning.btn-lg.float-right{:role => "button"}
+                Show hint!
+                %span.badge.badge-light
+                  6
+                %span.badge.badge-light
+                  3

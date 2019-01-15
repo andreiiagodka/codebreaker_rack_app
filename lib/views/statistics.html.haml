@@ -1,0 +1,63 @@
+!!!
+%html.mdl-js{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    %link{:href => "assets/favicon.ico", :rel => "icon"}/
+    %link{:href => "assets/css/bootstrap.min.css", :rel => "stylesheet"}/
+    %link{:href => "assets/css/styles.css", :rel => "stylesheet"}/
+    %script{:src => "assets/js/jquery.min.js"}
+    %script{:src => "assets/js/bootstrap.min.js"}
+    %title Codebreaker Web
+  %body
+    %section#introduction
+      .container
+        .row.fill-viewport.align-items-center.justify-content-center
+          .col-12.col-md-6
+            .row
+              .col-md-auto
+                %h1.text-white.title Codebreaker 2018
+            %p.lead.text-white-70 Top of Players:
+            %hr.mb-4/
+            .table-responsive-md.scores
+              %table.table.table-striped.table.table-sm
+                %thead
+                  %tr
+                    %th{:scope => "col"} #
+                    %th{:scope => "col"} Name
+                    %th{:scope => "col"} Level
+                    %th{:scope => "col"} Attempts Left
+                    %th{:scope => "col"} Hints Left
+                    %th{:scope => "col"} Date
+                %tbody
+                  %tr
+                    %th{:scope => "row"} 1
+                    %td Player 1
+                    %td Middle
+                    %td 8/10
+                    %td 3/3
+                    %td 2018.12.04 - 17:00:01
+                  %tr
+                    %th{:scope => "row"} 2
+                    %td Player 1
+                    %td Middle
+                    %td 8/10
+                    %td 3/3
+                    %td 2018.12.04 - 17:00:01
+                  %tr
+                    %th{:scope => "row"} 3
+                    %td Player 1
+                    %td Middle
+                    %td 8/10
+                    %td 3/3
+                    %td 2018.12.04 - 17:00:01
+                  %tr
+                    %th{:scope => "row"} 4
+                    %td Player 1
+                    %td Middle
+                    %td 8/10
+                    %td 3/3
+                    %td 2018.12.04 - 17:00:01
+            %hr.mb-4/
+            %a.btn.btn-primary.btn-lg{:href => "#", :role => "button"}
+              Home
