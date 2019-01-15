@@ -1,0 +1,30 @@
+en:
+  message:
+    introduction: Welcome to Codebreaker!
+    rules: Codebreaker rules
+    exit: Goodbye!
+    registration_heading: Codebreaker Registration
+    difficulty_heading: Choose difficulty
+    game_start_heading: The games has started! Try to guess secret code.
+    input_secret_code: Input secret code
+    player_name_registration: Input your name
+    statistics: Used attempts - %{used_attempts}/%{total_attempts}. Used hints - %{used_hints}/%{total_hints}
+    used_attempts: Used attempts
+    used_hints: Used hints
+    win: Congratulations! You have guessed it!
+    save_result: Would you like to save result of the game? [yes/no]
+    start_new_game: Would you like to start a new game? [yes/no]
+
+  error:
+    unexpected_option: You have passed unexpected option. Please choose one from listed options.
+    unexpected_command: You have passed unexpected command. Please choose one from listed options.
+    unexpected_difficulty: You have passed unexpected difficulty. Please choose one from listed difficulties.
+    player_name_length: Player name length min - %{min_length}, max - %{max_length}
+    secret_code_length: Required %{code_length} elements!
+    secret_code_digits_range: Each digit has to be in range %{min_value}-%{max_value}!
+    hints_limit: You are out of hints!
+    attempts_limit: You are out of attempts!
+
+  table:
+    title: Rating of Codebreakers
+    headings: [Rating, Name, Difficulty, Total Attempts, Used Attempts, Total Hints, Used Hints]
