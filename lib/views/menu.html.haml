@@ -16,22 +16,22 @@
           .col-12.col-md-6
             .row
               .col-md-auto
-                %h1.text-white.title= I18n.t('home_page.introduction')
+                %h1.text-white.title= I18n.t('introduction')
             .row
-              %p.lead.text-white-70= I18n.t('home_page.description')
+              %p.lead.text-white-70= I18n.t('description')
             %hr.mb-4/
             %form{:action => "", :method => "post"}
               .form-group
-                %label.lead.label{:for => "player_name"}= I18n.t('home_page.player_name')
+                %label.lead.label{:for => "player_name"}= I18n.t('player_name')
                 %input#player_name.form-control{:autofocus => "", :name => "player_name", :pattern => "^[\\w\\u0400-\\u04ff]{3,20}$", :placeholder => "Your name", :required => ""}/
               .form-group
-                %label.lead.label{:for => "level"}= I18n.t('home_page.game_level')
+                %label.lead.label{:for => "level"}= I18n.t('game_level')
                 %select.custom-select{:name => "level", :required => ""}
-                  %option{:value => ""}= I18n.t('home_page.choose_game_level')
+                  %option{:value => ""}= I18n.t('choose_game_level')
                   - Codebreaker::Difficulty::DIFFICULTIES.each do |difficulty, datum|
-                    %option{:value => "#{difficulty}"}= "#{datum[:level].capitalize} - #{datum[:attempts]} #{I18n.t('home_page.attempts')} - #{datum[:hints]} #{I18n.t('home_page.hints')}" 
+                    %option{:value => "#{difficulty}"}= "#{datum[:level].capitalize} - #{datum[:attempts]} #{I18n.t('attempts')} - #{datum[:hints]} #{I18n.t('hints')}"
               %hr.mb-4/
-              %button.btn.btn-primary.btn-lg{:type => "submit"}= I18n.t('home_page.start_game')
+              %button.btn.btn-primary.btn-lg{:type => "submit"}= I18n.t('start_game')
               %span.float-right
-                %a.btn.btn-warning.btn-lg{:href => "#", :role => "button"}= I18n.t('home_page.rules')
-                %a.btn.btn-success.btn-lg{:href => "#", :role => "button"}= I18n.t('home_page.statistics')
+                %a.btn.btn-warning.btn-lg{:href => "/rules", :role => "button"}= I18n.t('rules')
+                %a.btn.btn-success.btn-lg{:href => "#", :role => "button"}= I18n.t('statistics')

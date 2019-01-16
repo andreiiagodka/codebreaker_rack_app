@@ -10,6 +10,7 @@ class CodebreakerWeb
   def response
     case @request.path
     when '/' then return Rack::Response.new(render('menu'))
+    when '/rules' then return Rack::Response.new(render('rules'))
     end
   end
 

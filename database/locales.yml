@@ -1,12 +1,19 @@
 en:
-  home_page:
-    introduction: Codebreaker 2019
-    description: Try to guess 4-digit number, that consists of numbers in a range from 1 to 6
-    player_name: "Player's name:"
-    game_level: "Game level:"
-    choose_game_level: Choose game level...
-    attempts: attempts
-    hints: hints
-    start_game: Start the game!
-    rules: Rules
-    statistics: Statistics
+  introduction: Codebreaker 2019
+  description: Try to guess 4-digit number, that consists of numbers in a range from 1 to 6
+  player_name: "Player's name:"
+  game_level: "Game level:"
+  choose_game_level: Choose game level...
+  attempts: attempts
+  hints: hints
+  start_game: Start the game!
+  rules: Rules
+  statistics: Statistics
+  home: Home
+  rules_description:
+    Codebreaker is a logic game in which a code-breaker tries to break a secret code created by a code-maker. <br>
+    The codemaker, which will be played by the application we’re going to write,
+    creates a secret code of four numbers between 1 and 6. <br>
+    The codebreaker gets some number of chances to break the code (depends on chosen difficulty). <br>
+    In each turn, the codebreaker makes a guess of 4 numbers. <br>
+    The codemaker then marks the guess with up to 4 signs - + or - or empty spaces. <br>
