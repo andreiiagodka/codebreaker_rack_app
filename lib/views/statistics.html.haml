@@ -8,56 +8,40 @@
     %link{:href => "assets/css/styles.css", :rel => "stylesheet"}/
     %script{:src => "assets/js/jquery.min.js"}
     %script{:src => "assets/js/bootstrap.min.js"}
-    %title Codebreaker Web
+    %title Statistics
   %body
     %section#introduction
       .container
         .row.fill-viewport.align-items-center.justify-content-center
-          .col-12.col-md-6
+          .col-12.col-md-10
             .row
               .col-md-auto
-                %h1.text-white.title Codebreaker 2018
-            %p.lead.text-white-70 Top of Players:
+                %h1.text-white.title= I18n.t('introduction')
+            %p.lead.text-white-70= I18n.t('top_of_players')
             %hr.mb-4/
-            .table-responsive-md.scores
-              %table.table.table-striped.table.table-sm
-                %thead
-                  %tr
-                    %th{:scope => "col"} #
-                    %th{:scope => "col"} Name
-                    %th{:scope => "col"} Level
-                    %th{:scope => "col"} Attempts Left
-                    %th{:scope => "col"} Hints Left
-                    %th{:scope => "col"} Date
-                %tbody
-                  %tr
-                    %th{:scope => "row"} 1
-                    %td Player 1
-                    %td Middle
-                    %td 8/10
-                    %td 3/3
-                    %td 2018.12.04 - 17:00:01
-                  %tr
-                    %th{:scope => "row"} 2
-                    %td Player 1
-                    %td Middle
-                    %td 8/10
-                    %td 3/3
-                    %td 2018.12.04 - 17:00:01
-                  %tr
-                    %th{:scope => "row"} 3
-                    %td Player 1
-                    %td Middle
-                    %td 8/10
-                    %td 3/3
-                    %td 2018.12.04 - 17:00:01
-                  %tr
-                    %th{:scope => "row"} 4
-                    %td Player 1
-                    %td Middle
-                    %td 8/10
-                    %td 3/3
-                    %td 2018.12.04 - 17:00:01
+            - if load_statistics.empty?
+              %p.text-center.lead.text-white-70= I18n.t('empty_statistics')
+            - else
+              .table-responsive-md.scores
+                %table.table.table-striped.table.table-md
+                  %thead
+                    %tr
+                      %th{:scope => "col"}= I18n.t('table.hashtag')
+                      %th{:scope => "col"}= I18n.t('table.name')
+                      %th{:scope => "col"}= I18n.t('table.level')
+                      %th{:scope => "col"}= I18n.t('table.total_attempts')
+                      %th{:scope => "col"}= I18n.t('table.used_attempts')
+                      %th{:scope => "col"}= I18n.t('table.total_hints')
+                      %th{:scope => "col"}= I18n.t('table.used_hints')
+                    %tbody
+                      - load_statistics.each_with_index do |record, index|
+                        %tr
+                          %th{:scope => "row"}= index
+                          %td= record[:name]
+                          %td= record[:difficulty].capitalize
+                          %td= record[:total_attempts]
+                          %td= record[:used_attempts]
+                          %td= record[:total_hints]
+                          %td= record[:used_attempts]
             %hr.mb-4/
-            %a.btn.btn-primary.btn-lg{:href => "#", :role => "button"}
-              Home
+            %a.btn.btn-primary.btn-lg{:href => "/", :role => "button"}= I18n.t('home')

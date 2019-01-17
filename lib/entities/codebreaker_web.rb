@@ -11,7 +11,12 @@ class CodebreakerWeb
     case @request.path
     when '/' then return Rack::Response.new(render('menu'))
     when '/rules' then return Rack::Response.new(render('rules'))
+    when '/statistics' then return Rack::Response.new(render('statistics'))
     end
+  end
+
+  def load_statistics
+    Codebreaker::Statistic.new.load_statistics
   end
 
   private

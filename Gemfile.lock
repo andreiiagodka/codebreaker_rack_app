@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/andreiiagodka/codebreaker_gem.git
-  revision: 665781666dd3697fe34d7c07de1ca09abf6f6af0
+  revision: 58e55e71f095a0c62115017b9f9535b00796a803
   specs:
-    codebreaker (0.1.0)
+    codebreaker (0.1.1)
 
 GEM
   remote: https://rubygems.org/

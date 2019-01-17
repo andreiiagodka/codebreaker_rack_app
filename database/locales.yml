@@ -10,6 +10,8 @@ en:
   rules: Rules
   statistics: Statistics
   home: Home
+  top_of_players: "Top of Players:"
+  empty_statistics: There are no winners yet! Be the first!
   rules_description:
     Codebreaker is a logic game in which a code-breaker tries to break a secret code created by a code-maker. <br>
     The codemaker, which will be played by the application we’re going to write,
@@ -17,3 +19,12 @@ en:
     The codebreaker gets some number of chances to break the code (depends on chosen difficulty). <br>
     In each turn, the codebreaker makes a guess of 4 numbers. <br>
     The codemaker then marks the guess with up to 4 signs - + or - or empty spaces. <br>
+
+  table:
+    hashtag: "#"
+    name: Name
+    level: Level
+    total_attempts: Total attempts
+    used_attempts: Used atempts
+    total_hints: Total hints
+    used_hints: Used hints
