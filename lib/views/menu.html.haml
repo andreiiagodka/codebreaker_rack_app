@@ -19,8 +19,13 @@
                 %h1.text-white.title= I18n.t('introduction')
             .row
               %p.lead.text-white-70= I18n.t('description')
+            - if errors?
+              .row
+                - output_errors.each do |error|
+                  .alert.alert-danger{:role => "alert"}= error
+                  - clear_session
             %hr.mb-4/
-            %form{:action => "", :method => "post"}
+            %form{:action => "/authenticate", :method => "post"}
               .form-group
                 %label.lead.label{:for => "player_name"}= I18n.t('player_name')
                 %input#player_name.form-control{:autofocus => "", :name => "player_name", :pattern => "^[\\w\\u0400-\\u04ff]{3,20}$", :placeholder => "Your name", :required => ""}/

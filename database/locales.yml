@@ -28,3 +28,13 @@ en:
     used_attempts: Used atempts
     total_hints: Total hints
     used_hints: Used hints
+
+  error:
+    unexpected_option: You have passed unexpected option. Please choose one from listed options.
+    unexpected_command: You have passed unexpected command. Please choose one from listed options.
+    unexpected_difficulty: You have passed unexpected difficulty. Please choose one from listed difficulties.
+    player_name_length: Player name length min - %{min_length}, max - %{max_length}
+    secret_code_length: Required %{code_length} elements!
+    secret_code_digits_range: Each digit has to be in range %{min_value}-%{max_value}!
+    hints_limit: You are out of hints!
+    attempts_limit: You are out of attempts!
