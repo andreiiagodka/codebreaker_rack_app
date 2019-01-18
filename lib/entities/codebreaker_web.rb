@@ -24,12 +24,20 @@ class CodebreakerWeb
   end
 
   def authentication
-    if @post['player_name'].empty? || @post['level'].empty?
-      @request.session[:errors] = @errors << I18n.t('error.player_name_length',
-        min_length: Codebreaker::Player::NAME_LENGTH_RANGE.min,
-        max_length: Codebreaker::Player::NAME_LENGTH_RANGE.max)
+    @player = Codebreaker::Player.new(@post['player_name'])
+    validate_entity(@player)
+    @difficulty = Codebreaker::Difficulty.new(@post['level'])
+    validate_entity(@difficulty)
+    unless @errors.empty?
+      @request.session[:errors] = @errors
       redirect('/')
     end
+    redirect('/game')
+  end
+
+  def validate_entity(entity)
+    entity.validate
+    entity.errors.each { |error| @errors << error }
   end
 
   def errors?

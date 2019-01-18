@@ -28,7 +28,7 @@
             %form{:action => "/authenticate", :method => "post"}
               .form-group
                 %label.lead.label{:for => "player_name"}= I18n.t('player_name')
-                %input#player_name.form-control{:autofocus => "", :name => "player_name", :pattern => "^[\\w\\u0400-\\u04ff]{3,20}$", :placeholder => "Your name", :required => ""}/
+                %input#player_name.form-control{:autofocus => "", :name => "player_name", :placeholder => "Your name", :required => ""}/
               .form-group
                 %label.lead.label{:for => "level"}= I18n.t('game_level')
                 %select.custom-select{:name => "level", :required => ""}
