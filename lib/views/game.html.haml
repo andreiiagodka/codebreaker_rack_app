@@ -16,29 +16,29 @@
           .col-12.col-md-6
             .row
               .col-md-auto
-                %h1.text-white.title Codebreaker 2018
+                %h1.text-white.title= I18n.t('introduction')
             %p.lead.text-white-70
-              Hello, test!
-              Try to guess 4-digit number, that consists of numbers in a range from 1 to 6.
+              = "Hello, #{@request.session[:player].name}!"
+              = I18n.t('description')
             %hr.mb-4/
             .row
               .col.button
                 %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
-                  Level:
+                  = I18n.t('game_page.level')
                   %span.badge.badge-light
-                    Simple
+                    = @request.session[:difficulty].level[:level].capitalize
               .col.text-center.button
                 %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
-                  Attempts:
-                  %span.badge.badge-light 4
+                  = I18n.t('game_page.attempts')
+                  %span.badge.badge-light= @request.session[:difficulty].level[:attempts] - @request.session[:game].used_attempts
               .col.button
-                %button.btn.btn-primary.float-right{:type => "button"}
-                  Hints:
-                  %span.badge.badge-light 1
+                %button.btn.btn-primary.float-right{:disabled => "disabled", :type => "button"}
+                  = I18n.t('game_page.hints')
+                  %span.badge.badge-light= @request.session[:difficulty].level[:hints] - @request.session[:game].used_hints
             %hr.mb-4/
             %form{:action => "http://localhost:9292/submit_answer", :method => "post"}
               .form-group
-                %input.form-control.guess_input{:autocomplete => "off", :name => "number", :pattern => "^[1-6]{4}$", :placeholder => "1234", :required => ""}/
+                %input.form-control.guess_input{:autocomplete => "off", :name => "number", :pattern => "^[1-6]{4}$", :placeholder => "1234"}/
               .form-group.guess_markers_list
                 #guess_marker
                   %button.btn.btn-success.marks{:disabled => "disabled", :type => "button"} +
@@ -47,10 +47,12 @@
                   %button.btn.btn-danger.marks{:disabled => "disabled", :type => "button"} x
               %hr.mb-4/
               %button.btn.btn-primary.btn-lg{:type => "submit"}
-                Submit
-              %a.btn.btn-warning.btn-lg.float-right{:role => "button"}
-                Show hint!
-                %span.badge.badge-light
-                  6
-                %span.badge.badge-light
-                  3
+                = I18n.t('game_page.submit')
+            -# %form{:action => "/use_hint", :method => "post"}
+            -#   .form-group
+            -#     %button.btn.btn-warning.btn-lg.float-right{:type => "submit"}
+            -#       = I18n.t('game_page.take_hint')
+            -#       - if @request.session.key?(:hints)
+            -#         - @request.session[:hints].each do |hint|
+            -#           %span.badge.badge-light
+            -#             = hint

@@ -20,6 +20,13 @@ en:
     In each turn, the codebreaker makes a guess of 4 numbers. <br>
     The codemaker then marks the guess with up to 4 signs - + or - or empty spaces. <br>
 
+  game_page:
+    level: "Level:"
+    attempts: "Attempts"
+    hints: "Hints"
+    submit: Submit
+    take_hint: Take a hint!
+
   table:
     hashtag: "#"
     name: Name

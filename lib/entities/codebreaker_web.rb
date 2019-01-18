@@ -14,13 +14,31 @@ class CodebreakerWeb
     when '/' then return Rack::Response.new(render('menu'))
     when '/rules' then return Rack::Response.new(render('rules'))
     when '/statistics' then return Rack::Response.new(render('statistics'))
-    when '/game' then return Rack::Response.new(render('game'))
-    when '/authenticate' then return authentication
+    when '/game' then return gameflow
+    when '/authentication' then return authentication
+    when '/use_hint' then return use_hint
     end
   end
 
   def load_statistics
     Codebreaker::Statistic.new.load_statistics
+  end
+
+  def gameflow
+    unless @request.session.key?(:game)
+      redirect('/')
+    end
+    return Rack::Response.new(render('game'))
+  end
+
+  def use_hint
+    unless @request.session.key?(:game)
+      redirect('/')
+    end
+    @game = @request.session[:game]
+    @request.session[:hints] = []
+    @request.session[:hints] << @game.use_hint
+    redirect('/game')
   end
 
   def authentication
@@ -32,12 +50,10 @@ class CodebreakerWeb
       @request.session[:errors] = @errors
       redirect('/')
     end
+    @request.session[:player] = @player
+    @request.session[:difficulty] = @difficulty
+    @request.session[:game] = Codebreaker::Game.new(@difficulty.level)
     redirect('/game')
-  end
-
-  def validate_entity(entity)
-    entity.validate
-    entity.errors.each { |error| @errors << error }
   end
 
   def errors?
@@ -53,6 +69,11 @@ class CodebreakerWeb
   end
 
   private
+
+  def validate_entity(entity)
+    entity.validate
+    entity.errors.each { |error| @errors << error }
+  end
 
   def redirect(route)
     Rack::Response.new { |response| response.redirect(route) }
