@@ -48,11 +48,9 @@
               %hr.mb-4/
               %button.btn.btn-primary.btn-lg{:type => "submit"}
                 = I18n.t('game_page.submit')
-            -# %form{:action => "/use_hint", :method => "post"}
-            -#   .form-group
-            -#     %button.btn.btn-warning.btn-lg.float-right{:type => "submit"}
-            -#       = I18n.t('game_page.take_hint')
-            -#       - if @request.session.key?(:hints)
-            -#         - @request.session[:hints].each do |hint|
-            -#           %span.badge.badge-light
-            -#             = hint
+              %a{class: "btn btn-warning btn-lg float-right #{'disabled' if hints_available?}", href: "/use_hint", role: "button"}
+                = I18n.t('game_page.take_hint')
+                - if @request.session.key?(:hints)
+                  - @request.session[:hints].each do |hint|
+                    %span.badge.badge-light
+                      = hint

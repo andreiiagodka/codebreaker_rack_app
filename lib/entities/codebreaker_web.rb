@@ -32,11 +32,10 @@ class CodebreakerWeb
   end
 
   def use_hint
-    unless @request.session.key?(:game)
-      redirect('/')
-    end
+    return redirect('/') unless @request.session.key?(:game)
+    return redirect('/game') unless hints_available?
     @game = @request.session[:game]
-    @request.session[:hints] = []
+    @request.session[:hints] = [] unless session_present?(:hints)
     @request.session[:hints] << @game.use_hint
     redirect('/game')
   end
@@ -56,6 +55,10 @@ class CodebreakerWeb
     redirect('/game')
   end
 
+  def hints_available?
+    @request.session[:game].hints_available?
+  end
+
   def errors?
     @request.session.key?(:errors)
   end
@@ -69,6 +72,10 @@ class CodebreakerWeb
   end
 
   private
+
+  def session_present?(argument)
+    @request.session.key?(argument)
+  end
 
   def validate_entity(entity)
     entity.validate
