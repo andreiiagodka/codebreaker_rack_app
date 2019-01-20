@@ -23,7 +23,7 @@
               .row
                 - output_errors.each do |error|
                   .alert.alert-danger{:role => "alert"}= error
-                  - clear_session
+                  - clear_errors
             %hr.mb-4/
             %form{:action => "/authentication", :method => "post"}
               .form-group

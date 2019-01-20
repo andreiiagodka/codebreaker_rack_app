@@ -17,6 +17,11 @@
             .row
               .col-md-auto
                 %h1.text-white.title= I18n.t('introduction')
+            - if errors?
+              .row
+                - output_errors.each do |error|
+                  .alert.alert-danger{:role => "alert"}= error
+                  - clear_errors
             %p.lead.text-white-70
               = "Hello, #{@request.session[:player].name}!"
               = I18n.t('description')
@@ -36,9 +41,9 @@
                   = I18n.t('game_page.hints')
                   %span.badge.badge-light= @request.session[:difficulty].level[:hints] - @request.session[:game].used_hints
             %hr.mb-4/
-            %form{:action => "http://localhost:9292/submit_answer", :method => "post"}
+            %form{:action => "/guess", :method => "post"}
               .form-group
-                %input.form-control.guess_input{:autocomplete => "off", :name => "number", :pattern => "^[1-6]{4}$", :placeholder => "1234"}/
+                %input.form-control.guess_input{:autocomplete => "off", :name => "guess_code", :placeholder => "1234"}/
               .form-group.guess_markers_list
                 #guess_marker
                   %button.btn.btn-success.marks{:disabled => "disabled", :type => "button"} +

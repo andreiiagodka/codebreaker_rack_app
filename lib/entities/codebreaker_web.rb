@@ -16,7 +16,17 @@ class CodebreakerWeb
     when '/statistics' then return Rack::Response.new(render('statistics'))
     when '/game' then return gameflow
     when '/authentication' then return authentication
+    when '/guess' then return guess_result
     when '/use_hint' then return use_hint
+    end
+  end
+
+  def guess_result
+    @guess = Codebreaker::Guess.new(@post['guess_code'])
+    validate_entity(@guess)
+    unless @errors.empty?
+      @request.session[:errors] = @errors
+      return redirect('/game')
     end
   end
 
@@ -33,7 +43,7 @@ class CodebreakerWeb
 
   def use_hint
     return redirect('/') unless @request.session.key?(:game)
-    return redirect('/game') unless hints_available?
+    return redirect('/game') if hints_available?
     @game = @request.session[:game]
     @request.session[:hints] = [] unless session_present?(:hints)
     @request.session[:hints] << @game.use_hint
@@ -47,7 +57,7 @@ class CodebreakerWeb
     validate_entity(@difficulty)
     unless @errors.empty?
       @request.session[:errors] = @errors
-      redirect('/')
+      return redirect('/')
     end
     @request.session[:player] = @player
     @request.session[:difficulty] = @difficulty
@@ -69,6 +79,10 @@ class CodebreakerWeb
 
   def clear_session
     @request.session.clear
+  end
+
+  def clear_errors
+    @request.session[:errors].clear
   end
 
   private
