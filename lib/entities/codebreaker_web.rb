@@ -14,6 +14,8 @@ class CodebreakerWeb
     when '/' then return Rack::Response.new(render('menu'))
     when '/rules' then return Rack::Response.new(render('rules'))
     when '/statistics' then return Rack::Response.new(render('statistics'))
+    when '/win' then return Rack::Response.new(render('win'))
+    when '/lose' then return Rack::Response.new(render('lose'))
     when '/game' then return gameflow
     when '/authentication' then return authentication
     when '/guess' then return guess_result
@@ -22,12 +24,21 @@ class CodebreakerWeb
   end
 
   def guess_result
+    unless @request.session.key?(:game)
+      redirect('/')
+    end
     @guess = Codebreaker::Guess.new(@post['guess_code'])
     validate_entity(@guess)
     unless @errors.empty?
       @request.session[:errors] = @errors
       return redirect('/game')
     end
+    @game = @request.session[:game]
+    return redirect('/win') if @game.win?(@guess.guess_code)
+    return redirect('/lose') if @game.loss?
+    @game.increment_used_attempts
+    @request.session[:marked_guess] = @game.mark_guess(@guess.guess_code)
+    redirect('/game')
   end
 
   def load_statistics
@@ -85,11 +96,12 @@ class CodebreakerWeb
     @request.session[:errors].clear
   end
 
-  private
-
   def session_present?(argument)
     @request.session.key?(argument)
   end
+
+  private
+
 
   def validate_entity(entity)
     entity.validate

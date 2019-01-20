@@ -46,10 +46,14 @@
                 %input.form-control.guess_input{:autocomplete => "off", :name => "guess_code", :placeholder => "1234"}/
               .form-group.guess_markers_list
                 #guess_marker
-                  %button.btn.btn-success.marks{:disabled => "disabled", :type => "button"} +
-                  %button.btn.btn-primary.marks{:disabled => "disabled", :type => "button"} -
-                  %button.btn.btn-danger.marks{:disabled => "disabled", :type => "button"} x
-                  %button.btn.btn-danger.marks{:disabled => "disabled", :type => "button"} x
+                  - if session_present?(:marked_guess)
+                    - @request.session[:marked_guess].each do |mark|
+                      - if mark == '+'
+                        %button.btn.btn-success.marks{:disabled => "disabled", :type => "button"} +
+                      - elsif mark == '-'
+                        %button.btn.btn-primary.marks{:disabled => "disabled", :type => "button"} -
+                    - (4 - @request.session[:marked_guess].size).times do
+                      %button.btn.btn-danger.marks{:disabled => "disabled", :type => "button"} x
               %hr.mb-4/
               %button.btn.btn-primary.btn-lg{:type => "submit"}
                 = I18n.t('game_page.submit')

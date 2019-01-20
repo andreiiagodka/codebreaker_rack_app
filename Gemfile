@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'codebreaker', git: 'https://github.com/andreiiagodka/codebreaker_gem.git'
+gem 'codebreaker', '~> 0.1.2', git: 'https://github.com/andreiiagodka/codebreaker_gem.git'
 gem 'haml'
 gem 'i18n'
 gem 'rack'

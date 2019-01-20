@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/andreiiagodka/codebreaker_gem.git
-  revision: c89b074924f3378d2504fda3dd54aafadbfa317a
+  revision: af3615184e9cac9e9d511db9f2e6c05192849330
   specs:
-    codebreaker (0.1.1)
+    codebreaker (0.1.2)
 
 GEM
   remote: https://rubygems.org/
@@ -52,7 +52,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  codebreaker!
+  codebreaker (~> 0.1.2)!
   fasterer
   haml
   i18n
