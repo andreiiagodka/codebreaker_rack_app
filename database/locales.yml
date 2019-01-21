@@ -27,6 +27,16 @@ en:
     submit: Submit
     take_hint: Take a hint!
 
+  win_page:
+    attempts_left: "Attempts left:"
+    hints_left: "Hints left:"
+    congratulations: Congratulations, %{name}! You won the game!
+    play_again: Play again!
+
+  lose_page:
+    lose_text: Oops, %{name}! You lose the game!
+    secret_code: The code was
+
   table:
     hashtag: "#"
     name: Name
@@ -35,7 +45,7 @@ en:
     used_attempts: Used atempts
     total_hints: Total hints
     used_hints: Used hints
-    
+
   error:
     unexpected_option: You have passed unexpected option. Please choose one from listed options.
     unexpected_command: You have passed unexpected command. Please choose one from listed options.

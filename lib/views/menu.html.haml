@@ -25,7 +25,7 @@
                   .alert.alert-danger{:role => "alert"}= error
                   - clear_errors
             %hr.mb-4/
-            %form{:action => "/authentication", :method => "post"}
+            %form{:action => "/registration", :method => "post"}
               .form-group
                 %label.lead.label{:for => "player_name"}= I18n.t('player_name')
                 %input#player_name.form-control{:autofocus => "", :name => "player_name", :placeholder => "Your name", :required => ""}/
