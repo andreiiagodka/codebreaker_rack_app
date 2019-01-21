@@ -1,4 +1,6 @@
 class Game
+  attr_reader :errors
+
   include View
 
   def initialize(request)
@@ -10,22 +12,22 @@ class Game
 
   def registration
     @player = Codebreaker::Player.new(@post['player_name'])
-    validate_entity(@player)
-    @difficulty = Codebreaker::Difficulty.new(@post['level'])
-    validate_entity(@difficulty)
-    unless @errors.empty?
-      @request.session[:errors] = @errors
-      return redirect(:index)
-    end
-    @request.session[:player] = @player
-    @request.session[:difficulty] = @difficulty
-    @request.session[:game] = Codebreaker::Game.new(@difficulty.level)
-    redirect(:game)
+    validate(@player, :index)
+    # @difficulty = Codebreaker::Difficulty.new(@post['level'])
+    # validate(@difficulty)
+    # unless @errors.empty?
+    #   @request.session[:errors] = @errors
+    #   return redirect(:index)
+    # end
+    # @request.session[:player] = @player
+    # @request.session[:difficulty] = @difficulty
+    # @request.session[:game] = Codebreaker::Game.new(@difficulty.level)
+    # redirect(:game)
   end
 
   def guess
     @guess = Codebreaker::Guess.new(@post['guess_code'])
-    validate_entity(@guess)
+    validate(@guess)
     unless @errors.empty?
       @request.session[:errors] = @errors
       return redirect(:game)
@@ -71,9 +73,11 @@ class Game
     @session[:game_inactive] == true
   end
 
-  def validate_entity(entity)
+  def validate(entity, redirect_route)
     entity.validate
     entity.errors.each { |error| @errors << error }
+    @request.session[:errors] = @errors
+    return redirect(redirect_route) unless @errors.empty?
   end
 
   def redirect(route)

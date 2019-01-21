@@ -19,9 +19,9 @@
                 %h1.text-white.title= I18n.t('introduction')
             .row
               %p.lead.text-white-70= I18n.t('description')
-            - if errors?
+            - if @request.session[:errors]
               .row
-                - output_errors.each do |error|
+                - @request.session[:errors].each do |error|
                   .alert.alert-danger{:role => "alert"}= error
                   - clear_errors
             %hr.mb-4/
