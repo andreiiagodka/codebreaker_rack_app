@@ -1,4 +1,6 @@
-class CodebreakerWeb
+class CodebreakerRoute
+  include View
+
   ROUTES = {
     index: '/',
     game: '/game',
@@ -29,34 +31,34 @@ class CodebreakerWeb
 
   def active_mode
     case @route
-    when ROUTES[:game] then return Rack::Response.new(render('game'))
+    when ROUTES[:game] then View.response(:game)
     when ROUTES[:hint] then hint
     when ROUTES[:guess] then guess
     when ROUTES[:win] then win
     when ROUTES[:lose] then lose
-    else redirect(ROUTES[:game])
+    else redirect(:game)
     end
   end
 
   def inactive_mode
     case @route
-    when ROUTES[:index] then return Rack::Response.new(render('menu'))
-    when ROUTES[:rules] then return Rack::Response.new(render('rules'))
-    when ROUTES[:statistics] then return Rack::Response.new(render('statistics'))
+    when ROUTES[:index] then View.response(:index)
+    when ROUTES[:rules] then View.response(:rules)
+    when ROUTES[:statistics] then View.response(:statistics)
     when ROUTES[:registration] then registration
-    else redirect(ROUTES[:index])
+    else redirect(:index)
     end
   end
 
   def win
-    return redirect(ROUTES[:game]) unless game_inactive?
+    return redirect(:game) unless game_inactive?
     Codebreaker::Statistic.new.save(@request.session[:player], @request.session[:game])
-    return Rack::Response.new(render('win'))
+    View.response(:win)
   end
 
   def lose
-    return redirect(ROUTES[:game]) unless game_inactive?
-    return Rack::Response.new(render('lose'))
+    return redirect(:game) unless game_inactive?
+    View.response(:lose)
   end
 
   def guess
@@ -64,20 +66,20 @@ class CodebreakerWeb
     validate_entity(@guess)
     unless @errors.empty?
       @request.session[:errors] = @errors
-      return redirect('/game')
+      return redirect(:game)
     end
     @game = @request.session[:game]
     if @game.win?(@guess.guess_code)
       @request.session[:game_inactive] = true
-      return redirect('/win')
+      return redirect(:win)
     end
     if @game.loss?
       @request.session[:game_inactive] = true
-      return redirect('/lose')
+      return redirect(:lose)
     end
     @game.increment_used_attempts
     @request.session[:marked_guess] = @game.mark_guess(@guess.guess_code)
-    redirect('/game')
+    redirect(:game)
   end
 
   def load_statistics
@@ -85,11 +87,11 @@ class CodebreakerWeb
   end
 
   def hint
-    return redirect('/game') if hints_available?
+    return redirect(:game) if hints_available?
     @game = @request.session[:game]
     @request.session[:hints] = [] unless session_present?(:hints)
     @request.session[:hints] << @game.use_hint
-    redirect('/game')
+    redirect(:game)
   end
 
   def registration
@@ -99,12 +101,12 @@ class CodebreakerWeb
     validate_entity(@difficulty)
     unless @errors.empty?
       @request.session[:errors] = @errors
-      return redirect('/')
+      return redirect(:index)
     end
     @request.session[:player] = @player
     @request.session[:difficulty] = @difficulty
     @request.session[:game] = Codebreaker::Game.new(@difficulty.level)
-    redirect('/game')
+    redirect(:game)
   end
 
   def hints_available?
@@ -143,11 +145,6 @@ class CodebreakerWeb
   end
 
   def redirect(route)
-    Rack::Response.new { |response| response.redirect(route) }
-  end
-
-  def render(template)
-    path = File.expand_path("../../views/#{template}.html.haml", __FILE__)
-    Haml::Engine.new(File.read(path)).render(binding)
+    Rack::Response.new { |response| response.redirect(ROUTES[route]) }
   end
 end

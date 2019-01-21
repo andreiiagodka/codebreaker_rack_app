@@ -5,4 +5,4 @@ require 'codebreaker'
 
 require_relative 'config/i18n'
 
-require_relative './lib/entities/codebreaker_web'
+require_relative './lib/entities/codebreaker_route'
