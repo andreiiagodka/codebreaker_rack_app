@@ -11,14 +11,14 @@ module View
     statistics: 'statistics'
   }.freeze
 
-  def self.response(view)
+  def response_view(view)
     return Rack::Response.new(render(view))
   end
 
   private
 
   def render(view)
-    path = File.expand_path(VIEWS_PATH . VIEWS[view] . HAML_EXTENSION, __FILE__)
+    path = File.expand_path("#{VIEWS_PATH}#{VIEWS[view]}#{HAML_EXTENSION}", __FILE__)
     Haml::Engine.new(File.read(path)).render(binding)
   end
 end
