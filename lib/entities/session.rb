@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Session
   def initialize(request)
     @session = request.session

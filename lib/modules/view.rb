@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module View
   VIEWS_RELATIVE_PATH = '../../views/'
   HAML_EXTENSION = '.html.haml'
@@ -12,7 +14,7 @@ module View
   }.freeze
 
   def response_view(view)
-    return Rack::Response.new(render(view))
+    Rack::Response.new(render(view))
   end
 
   private
