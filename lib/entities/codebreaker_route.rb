@@ -8,7 +8,7 @@ class CodebreakerRoute
     lose: '/lose',
     rules: '/rules',
     statistics: '/statistics',
-    registration: '/registration',
+    authentication: '/authentication',
     hint: '/hint',
     guess: '/guess'
   }.freeze
@@ -19,13 +19,13 @@ class CodebreakerRoute
 
   def initialize(env)
     @request = Rack::Request.new(env)
-    @game = Game.new(@request)
+    @session = Session.new(@request)
+    @game = ActiveMode.new(@request, @session)
     @route = @request.path
-    @session = @request.session
   end
 
   def response
-    session_present?(:game) ? active_mode : inactive_mode
+    @session.present?(:game) ? active_mode : inactive_mode
   end
 
   def active_mode
@@ -44,37 +44,13 @@ class CodebreakerRoute
     when ROUTES[:index] then response_view(:index)
     when ROUTES[:rules] then response_view(:rules)
     when ROUTES[:statistics] then response_view(:statistics)
-    when ROUTES[:registration] then @game.registration
+    when ROUTES[:authentication] then @game.authentication
     else redirect(:index)
     end
   end
 
   def load_statistics
     Codebreaker::Statistic.new.load_statistics
-  end
-
-  def errors
-    @request.session[:errors]
-  end
-
-  def errors?
-    @request.session.key?(:errors)
-  end
-
-  def output_errors
-    @request.session[:errors]
-  end
-
-  def clear_session
-    @request.session.clear
-  end
-
-  def clear_errors
-    @request.session[:errors].clear
-  end
-
-  def session_present?(argument)
-    @request.session.key?(argument)
   end
 
   private

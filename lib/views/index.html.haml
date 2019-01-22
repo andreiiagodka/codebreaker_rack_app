@@ -19,13 +19,13 @@
                 %h1.text-white.title= I18n.t('introduction')
             .row
               %p.lead.text-white-70= I18n.t('description')
-            - if @request.session[:errors]
+            - if @session.present?(:errors) && !@session.get(:errors).empty?
               .row
-                - @request.session[:errors].each do |error|
+                - @session.get(:errors).each do |error|
                   .alert.alert-danger{:role => "alert"}= error
-                  - clear_errors
+                  - @session.get(:errors).clear
             %hr.mb-4/
-            %form{:action => "/registration", :method => "post"}
+            %form{:action => "/authentication", :method => "post"}
               .form-group
                 %label.lead.label{:for => "player_name"}= I18n.t('player_name')
                 %input#player_name.form-control{:autofocus => "", :name => "player_name", :placeholder => "Your name", :required => ""}/

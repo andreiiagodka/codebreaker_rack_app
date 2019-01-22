@@ -1,15 +1,15 @@
-class Game
+class ActiveMode
   include View
 
-  def initialize(request)
+  def initialize(request, session)
     @request = request
-    @session = Session.new(request)
-    @post = @request.params
+    @session = session
+    @params = @request.params
     @game = @session.get(:game) if @session.present?(:game)
     @errors = []
   end
 
-  def registration
+  def authentication
     registrate_player
     registrate_difficulty
     return redirect(:index) unless valid_credentials?
@@ -23,12 +23,12 @@ class Game
     return redirect(:game) unless valid_credentials?
 
     if @game.win?(@session.get(:guess).guess_code)
-      @request.session[:game_inactive] = true
+      deactivate_game
       return redirect(:win)
     end
 
     if @game.loss?
-      @request.session[:game_inactive] = true
+      deactivate_game
       return redirect(:lose)
     end
 
@@ -49,19 +49,23 @@ class Game
   end
 
   def win
-    return redirect(:game) unless game_inactive?
+    return redirect(:game) unless game_deactivated?
     Codebreaker::Statistic.new.save(@session.get(:player), @session.get(:game))
     response_view(:win)
   end
 
   def lose
-    return redirect(:game) unless game_inactive?
+    return redirect(:game) unless game_deactivated?
     response_view(:lose)
   end
 
   private
 
-  def game_inactive?
+  def deactivate_game
+    @session.set(:game_inactive, true)
+  end
+
+  def game_deactivated?
     @session.get(:game_inactive) == true
   end
 
@@ -70,17 +74,17 @@ class Game
   end
 
   def registrate_player
-    player = Codebreaker::Player.new(@post['player_name'])
+    player = Codebreaker::Player.new(@params['player_name'])
     validate(player, :player)
   end
 
   def registrate_difficulty
-    difficulty = Codebreaker::Difficulty.new(@post['level'])
+    difficulty = Codebreaker::Difficulty.new(@params['level'])
     validate(difficulty, :difficulty)
   end
 
   def registrate_guess
-    guess = Codebreaker::Guess.new(@post['guess_code'])
+    guess = Codebreaker::Guess.new(@params['guess_code'])
     validate(guess, :guess)
   end
 
@@ -90,10 +94,10 @@ class Game
 
   def collect_errors(entity)
     entity.errors.each { |error| @errors << error }
-    @request.session[:errors] = @errors
+    @session.set(:errors, @errors)
   end
 
   def valid_credentials?
-    @errors.empty?
+    @session.get(:errors).empty?
   end
 end

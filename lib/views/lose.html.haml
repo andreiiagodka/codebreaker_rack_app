@@ -44,4 +44,4 @@
             %hr.mb-4/
             %a.btn.btn-primary.btn-lg{:href => "/", :role => "button"}= I18n.t('win_page.play_again')
             %a.btn.btn-success.btn-lg.float-right{:href => "/statistics", :role => "button"}= I18n.t('statistics')
-            - clear_session
+            - @session.clear
