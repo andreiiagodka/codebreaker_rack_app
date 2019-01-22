@@ -54,7 +54,7 @@ class CodebreakerRoute
   end
 
   def errors
-    @game.errors
+    @request.session[:errors]
   end
 
   def errors?

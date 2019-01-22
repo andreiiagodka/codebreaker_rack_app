@@ -3,8 +3,9 @@ class Game
 
   def initialize(request)
     @request = request
-    @session = @request.session
+    @session = Session.new(request)
     @post = @request.params
+    @game = @session.get(:game) if @session.present?(:game)
     @errors = []
   end
 
@@ -13,7 +14,7 @@ class Game
     registrate_difficulty
     return redirect(:index) unless valid_credentials?
 
-    @request.session[:game] = Codebreaker::Game.new(@request.session[:difficulty].level)
+    @session.set(:game, Codebreaker::Game.new(@session.get(:difficulty).level))
     redirect(:game)
   end
 
@@ -21,10 +22,7 @@ class Game
     registrate_guess
     return redirect(:game) unless valid_credentials?
 
-    @game = @request.session[:game]
-    @guess = @request.session[:guess]
-
-    if @game.win?(@guess.guess_code)
+    if @game.win?(@session.get(:guess).guess_code)
       @request.session[:game_inactive] = true
       return redirect(:win)
     end
@@ -35,25 +33,24 @@ class Game
     end
 
     @game.increment_used_attempts
-    @request.session[:marked_guess] = @game.mark_guess(@guess.guess_code)
+    @session.set(:marked_guess, @game.mark_guess(@session.get(:guess).guess_code))
     redirect(:game)
   end
 
   def hint
     return redirect(:game) if hints_available?
-    @game = @request.session[:game]
-    @request.session[:hints] = [] unless session_present?(:hints)
-    @request.session[:hints] << @game.use_hint
+    @session.set(:hints, []) unless @session.present?(:hints)
+    @session.get(:hints) << @game.use_hint
     redirect(:game)
   end
 
   def hints_available?
-    @request.session[:game].hints_available?
+    @session.get(:game).hints_available?
   end
 
   def win
     return redirect(:game) unless game_inactive?
-    Codebreaker::Statistic.new.save(@request.session[:player], @request.session[:game])
+    Codebreaker::Statistic.new.save(@session.get(:player), @session.get(:game))
     response_view(:win)
   end
 
@@ -65,19 +62,11 @@ class Game
   private
 
   def game_inactive?
-    @session[:game_inactive] == true
+    @session.get(:game_inactive) == true
   end
 
   def redirect(route)
     Rack::Response.new { |response| response.redirect(CodebreakerRoute::ROUTES[route]) }
-  end
-
-  def session_present?(argument)
-    @session.key?(argument)
-  end
-
-  def clear_session
-    @request.session.clear
   end
 
   def registrate_player
@@ -96,7 +85,7 @@ class Game
   end
 
   def validate(entity, session_argument)
-    entity.valid? ? @request.session[session_argument] = entity : collect_errors(entity)
+    entity.valid? ? @session.set(session_argument, entity) : collect_errors(entity)
   end
 
   def collect_errors(entity)
