@@ -53,6 +53,10 @@ class CodebreakerRoute
     Codebreaker::Statistic.new.load_statistics
   end
 
+  def errors
+    @game.errors
+  end
+
   def errors?
     @request.session.key?(:errors)
   end
