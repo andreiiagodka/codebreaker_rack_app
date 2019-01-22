@@ -17,7 +17,7 @@
             .row
               .col-md-auto
                 %h1.text-white.title= I18n.t('introduction')
-            - unless @session.get(:errors).empty?
+            - if @session.present?(:errors) && !@session.get(:errors).empty?
               .row
                 - @session.get(:errors).each do |error|
                   .alert.alert-danger{:role => "alert"}= error
@@ -43,7 +43,7 @@
             %hr.mb-4/
             %form{:action => "/guess", :method => "post"}
               .form-group
-                %input.form-control.guess_input{:autocomplete => "off", :name => "guess_code", :placeholder => "1234"}/
+                %input.form-control.guess_input{:autocomplete => "off", :name => "guess_code", :placeholder => "1234", :autofocus => true}/
               .form-group.guess_markers_list
                 #guess_marker
                   - if session_present?(:marked_guess)
@@ -57,7 +57,7 @@
               %hr.mb-4/
               %button.btn.btn-primary.btn-lg{:type => "submit"}
                 = I18n.t('game_page.submit')
-              %a{class: "btn btn-warning btn-lg float-right #{'disabled' if @game.hints_available?}", href: "/hint", role: "button"}
+              %a{class: "btn btn-warning btn-lg float-right #{'disabled' if @session.get(:game).hints_available?}", href: "/hint", role: "button"}
                 = I18n.t('game_page.take_hint')
                 - if @request.session.key?(:hints)
                   - @request.session[:hints].each do |hint|

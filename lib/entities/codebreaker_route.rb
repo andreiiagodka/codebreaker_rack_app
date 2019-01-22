@@ -8,7 +8,7 @@ class CodebreakerRoute
     lose: '/lose',
     rules: '/rules',
     statistics: '/statistics',
-    authentication: '/authentication',
+    registration: '/registration',
     hint: '/hint',
     guess: '/guess'
   }.freeze
@@ -20,7 +20,7 @@ class CodebreakerRoute
   def initialize(env)
     @request = Rack::Request.new(env)
     @session = Session.new(@request)
-    @game = ActiveMode.new(@request, @session)
+    @active_mode = ActiveMode.new(@request, @session)
     @route = @request.path
   end
 
@@ -31,11 +31,11 @@ class CodebreakerRoute
   def active_mode
     case @route
     when ROUTES[:game] then response_view(:game)
-    when ROUTES[:guess] then @game.guess
-    when ROUTES[:hint] then @game.hint
-    when ROUTES[:win] then @game.win
-    when ROUTES[:lose] then @game.lose
-    else redirect(:game)
+    when ROUTES[:guess] then @active_mode.guess
+    when ROUTES[:hint] then @active_mode.hint
+    when ROUTES[:win] then @active_mode.win
+    when ROUTES[:lose] then @active_mode.lose
+    else @active_mode.redirect(:game)
     end
   end
 
@@ -44,18 +44,12 @@ class CodebreakerRoute
     when ROUTES[:index] then response_view(:index)
     when ROUTES[:rules] then response_view(:rules)
     when ROUTES[:statistics] then response_view(:statistics)
-    when ROUTES[:authentication] then @game.authentication
-    else redirect(:index)
+    when ROUTES[:registration] then @active_mode.registration
+    else @active_mode.redirect(:index)
     end
   end
 
   def load_statistics
     Codebreaker::Statistic.new.load_statistics
-  end
-
-  private
-
-  def redirect(route)
-    Rack::Response.new { |response| response.redirect(ROUTES[route]) }
   end
 end
