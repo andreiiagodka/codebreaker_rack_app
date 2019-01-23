@@ -1,41 +1,55 @@
 en:
-  introduction: Codebreaker 2019
-  description: Try to guess 4-digit number, that consists of numbers in a range from 1 to 6
-  player_name: "Player's name:"
-  game_level: "Game level:"
-  choose_game_level: Choose game level...
-  attempts: attempts
-  hints: hints
-  start_game: Start the game!
-  rules: Rules
-  statistics: Statistics
-  home: Home
-  top_of_players: "Top of Players:"
-  empty_statistics: There are no winners yet! Be the first!
-  rules_description:
-    Codebreaker is a logic game in which a code-breaker tries to break a secret code created by a code-maker. <br>
-    The codemaker, which will be played by the application we’re going to write,
-    creates a secret code of four numbers between 1 and 6. <br>
-    The codebreaker gets some number of chances to break the code (depends on chosen difficulty). <br>
-    In each turn, the codebreaker makes a guess of 4 numbers. <br>
-    The codemaker then marks the guess with up to 4 signs - + or - or empty spaces. <br>
+  tab_title: Codebreaker Web
+  game_title: Codebreaker %{year}
+  short_description: Try to guess %{secret_code_length}-digit number, that consists of numbers in a range from %{min_value} to %{max_value}
+
+  index_page:
+    player_name: "Player's name:"
+    game_level: "Game level:"
+    attempts: attempts
+    hints: hints
 
   game_page:
-    level: "Level:"
-    attempts: "Attempts"
-    hints: "Hints"
-    submit: Submit
-    take_hint: Take a hint!
+    greeting: Hello, %{name}!
 
   win_page:
-    attempts_left: "Attempts left:"
-    hints_left: "Hints left:"
-    congratulations: Congratulations, %{name}! You won the game!
-    play_again: Play again!
+    win_msg: Congratulations, %{name}! You won the game!
 
   lose_page:
-    lose_text: Oops, %{name}! You lose the game!
-    secret_code: The code was
+    lose_msg: Oops, %{name}! You lose the game!
+    code: The code was %{code}
+
+  rules_page:
+    title: Rules
+    description:
+      Codebreaker is a logic game in which a code-breaker tries to break a secret code created by a code-maker. <br>
+      The codemaker, which will be played by the application we’re going to write,
+      creates a secret code of four numbers between 1 and 6. <br>
+      The codebreaker gets some number of chances to break the code (depends on chosen difficulty). <br>
+      In each turn, the codebreaker makes a guess of 4 numbers. <br>
+      The codemaker then marks the guess with up to 4 signs - + or - or empty spaces. <br>
+
+  statistics_page:
+    top: "Top of Players:"
+    empty: There are no winners yet! Be the first!
+
+  game_statistics:
+    level: "Level:"
+    attempts: "Attempts:"
+    hints: "Hints:"
+
+  buttons:
+    start_game: Start the game!
+    rules: Rules
+    statistics: Statistics
+    submit: Submit
+    hint: Take a hint!
+    home: Home
+    play_again: Play again!
+
+  placeholders:
+    player_name: Enter your name
+    game_level: Choose game level
 
   table:
     hashtag: "#"
@@ -47,11 +61,6 @@ en:
     used_hints: Used hints
 
   error:
-    unexpected_option: You have passed unexpected option. Please choose one from listed options.
-    unexpected_command: You have passed unexpected command. Please choose one from listed options.
-    unexpected_difficulty: You have passed unexpected difficulty. Please choose one from listed difficulties.
     player_name_length: Player name length min - %{min_length}, max - %{max_length}
     secret_code_length: Required %{code_length} elements!
     secret_code_digits_range: Each digit has to be in range %{min_value}-%{max_value}!
-    hints_limit: You are out of hints!
-    attempts_limit: You are out of attempts!

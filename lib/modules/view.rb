@@ -3,7 +3,8 @@
 module View
   VIEWS_RELATIVE_PATH = '../../views/'
   HAML_EXTENSION = '.html.haml'
-  LAYOUTS_DIR = 'layouts/'
+  PARTIALS_DIR = 'partials/'
+  LAYOUT_PATH =  File.expand_path("#{VIEWS_RELATIVE_PATH}layouts/layout#{HAML_EXTENSION}", __FILE__)
 
   VIEWS = {
     index: 'index',
@@ -14,19 +15,31 @@ module View
     statistics: 'statistics'
   }.freeze
 
+  PARTIALS = {
+    assets: 'assets',
+    errors: 'errors',
+    short_description: 'short_description',
+    difficulties: 'difficulties',
+    game_statistics: 'game_statistics'
+  }.freeze
+
   def response_view(view)
     Rack::Response.new(render_layout { render_view(view) })
+  end
+
+  def render_partial(partial)
+    path = File.expand_path("#{VIEWS_RELATIVE_PATH}#{PARTIALS_DIR}#{PARTIALS[partial]}#{HAML_EXTENSION}", __FILE__)
+    Haml::Engine.new(File.read(path)).render(binding)
   end
 
   private
 
   def render_layout
-    layout_path =  File.expand_path("#{VIEWS_RELATIVE_PATH}#{LAYOUTS_DIR}layout#{HAML_EXTENSION}", __FILE__)
-    Haml::Engine.new(File.read(layout_path)).render(binding)
+    Haml::Engine.new(File.read(LAYOUT_PATH)).render(binding)
   end
 
   def render_view(view)
-    view_path = File.expand_path("#{VIEWS_RELATIVE_PATH}#{VIEWS[view]}#{HAML_EXTENSION}", __FILE__)
-    Haml::Engine.new(File.read(view_path)).render(binding)
+    path = File.expand_path("#{VIEWS_RELATIVE_PATH}#{VIEWS[view]}#{HAML_EXTENSION}", __FILE__)
+    Haml::Engine.new(File.read(path)).render(binding)
   end
 end

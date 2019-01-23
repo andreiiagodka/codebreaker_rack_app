@@ -1,0 +1,15 @@
+%hr.mb-4/
+.row
+  .col.button
+    %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
+      = I18n.t('game_statistics.level')
+      %span.badge.badge-light= @session.get(:difficulty).level[:level].capitalize
+  .col.text-center.button
+    %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
+      = I18n.t('game_statistics.attempts')
+      %span.badge.badge-light= @session.get(:difficulty).level[:attempts] - @session.get(:game).used_attempts
+  .col.button
+    %button.btn.btn-primary.float-right{:disabled => "disabled", :type => "button"}
+      = I18n.t('game_statistics.hints')
+      %span.badge.badge-light= @session.get(:difficulty).level[:hints] - @session.get(:game).used_hints
+%hr.mb-4/

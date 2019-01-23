@@ -3,6 +3,8 @@
 class ActiveMode
   include View
 
+  NO_MATCH = 'x'
+
   def initialize(request, session)
     @request = request
     @session = session

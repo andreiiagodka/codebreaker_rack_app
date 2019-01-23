@@ -50,8 +50,4 @@ class CodebreakerRoute
     else @active_mode.redirect(:index)
     end
   end
-
-  def load_statistics
-    Codebreaker::Statistic.new.load_statistics
-  end
 end

@@ -1,46 +1,27 @@
-- if @session.present?(:errors) && !@session.get(:errors).empty?
-  .row
-    - @session.get(:errors).each do |error|
-      .alert.alert-danger{:role => "alert"}= error
-      - @session.get(:errors).clear
-%p.lead.text-white-70
-  = "Hello, #{@request.session[:player].name}!"
-  = I18n.t('description')
-%hr.mb-4/
 .row
-  .col.button
-    %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
-      = I18n.t('game_page.level')
-      %span.badge.badge-light
-        = @request.session[:difficulty].level[:level].capitalize
-  .col.text-center.button
-    %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
-      = I18n.t('game_page.attempts')
-      %span.badge.badge-light= @request.session[:difficulty].level[:attempts] - @request.session[:game].used_attempts
-  .col.button
-    %button.btn.btn-primary.float-right{:disabled => "disabled", :type => "button"}
-      = I18n.t('game_page.hints')
-      %span.badge.badge-light= @request.session[:difficulty].level[:hints] - @request.session[:game].used_hints
-%hr.mb-4/
+  %p.lead.text-white-70
+    = I18n.t('game_page.greeting', name: @session.get(:player).name)
+= render_partial(:short_description)
+= render_partial(:errors)
+= render_partial(:game_statistics)
 %form{:action => "/guess", :method => "post"}
   .form-group
-    %input.form-control.guess_input{:autocomplete => "off", :name => "guess_code", :placeholder => "1234", :autofocus => true}/
+    %input.form-control.guess_input{:autocomplete => "off", :name => "guess_code", :autofocus => true}/
   .form-group.guess_markers_list
     #guess_marker
-      - if @session.present?(:marked_guess)
-        - @request.session[:marked_guess].each do |mark|
-          - if mark == '+'
-            %button.btn.btn-success.marks{:disabled => "disabled", :type => "button"} +
-          - elsif mark == '-'
-            %button.btn.btn-primary.marks{:disabled => "disabled", :type => "button"} -
-        - (4 - @request.session[:marked_guess].size).times do
-          %button.btn.btn-danger.marks{:disabled => "disabled", :type => "button"} x
+    - if @session.present?(:marked_guess)
+      - @session.get(:marked_guess).each do |mark|
+        - if mark == Codebreaker::Game::EXACT_MATCH
+          %button.btn.btn-success.marks{:disabled => "disabled", :type => "button"}= Codebreaker::Game::EXACT_MATCH
+        - elsif mark == Codebreaker::Game::NUMBER_MATCH
+          %button.btn.btn-primary.marks{:disabled => "disabled", :type => "button"}= Codebreaker::Game::NUMBER_MATCH
+      - (Codebreaker::Game::SECRET_CODE_LENGTH - @session.get(:marked_guess).size).times do
+        %button.btn.btn-danger.marks{:disabled => "disabled", :type => "button"}= ActiveMode::NO_MATCH
   %hr.mb-4/
-  %button.btn.btn-primary.btn-lg{:type => "submit"}
-    = I18n.t('game_page.submit')
+  %button.btn.btn-primary.btn-lg{:type => "submit"}= I18n.t('buttons.submit')
   %a{class: "btn btn-warning btn-lg float-right #{'disabled' if @session.get(:game).hints_available?}", href: "/hint", role: "button"}
-    = I18n.t('game_page.take_hint')
-    - if @request.session.key?(:hints)
-      - @request.session[:hints].each do |hint|
+    = I18n.t('buttons.hint')
+    - if @session.present?(:hints)
+      - @session.get(:hints).each do |hint|
         %span.badge.badge-light
           = hint

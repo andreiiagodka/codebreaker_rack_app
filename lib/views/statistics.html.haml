@@ -1,7 +1,7 @@
-%p.lead.text-white-70= I18n.t('top_of_players')
+%p.lead.text-white-70= I18n.t('statistics_page.top')
 %hr.mb-4/
-- if load_statistics.empty?
-  %p.text-center.lead.text-white-70= I18n.t('empty_statistics')
+- if Codebreaker::Statistic.new.load_statistics.empty?
+  %p.text-center.lead.text-white-70= I18n.t('statistics_page.empty')
 - else
   .table-responsive-md.scores
     %table.table.table-striped.table.table-md
@@ -15,7 +15,7 @@
           %th{:scope => "col"}= I18n.t('table.total_hints')
           %th{:scope => "col"}= I18n.t('table.used_hints')
         %tbody
-          - load_statistics.each_with_index do |record, index|
+          - Codebreaker::Statistic.new.load_statistics.each_with_index do |record, index|
             %tr
               %th{:scope => "row"}= index + 1
               %td= record[:name]
@@ -25,4 +25,4 @@
               %td= record[:total_hints]
               %td= record[:used_attempts]
 %hr.mb-4/
-%a.btn.btn-primary.btn-lg{:href => "/", :role => "button"}= I18n.t('home')
+%a.btn.btn-primary.btn-lg{:href => "/", :role => "button"}= I18n.t('buttons.home')
