@@ -1,44 +1,25 @@
-!!!
-%html.mdl-js{:lang => "en"}
-  %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
-    %link{:href => "assets/favicon.ico", :rel => "icon"}/
-    %link{:href => "assets/css/bootstrap.min.css", :rel => "stylesheet"}/
-    %link{:href => "assets/css/styles.css", :rel => "stylesheet"}/
-    %script{:src => "assets/js/jquery.min.js"}
-    %script{:src => "assets/js/bootstrap.min.js"}
-    %title Codebreaker Web
-  %body
-    %section#introduction
-      .container
-        .row.fill-viewport.align-items-center.justify-content-center
-          .col-12.col-md-6
-            .row
-              .col-md-auto
-                %h1.text-white.title.inline-block= I18n.t('introduction')
-            .row
-              .col.button
-                %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
-                  = I18n.t('game_page.level')
-                  %span.badge.badge-light
-                    = @request.session[:difficulty].level[:level].capitalize
-                %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
-                  = I18n.t('win_page.attempts_left')
-                  %span.badge.badge-light
-                    = @request.session[:difficulty].level[:attempts] - @request.session[:game].used_attempts
-                %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
-                  = I18n.t('win_page.hints_left')
-                  %span.badge.badge-light
-                    = @request.session[:difficulty].level[:hints] - @request.session[:game].used_hints
-            %hr.mb-4/
-            .row
-              .text-center
-                .text-center
-                  %h3.text-white
-                    = I18n.t('win_page.congratulations', name: @request.session[:player].name)
-                %img.img-fluid{:alt => "You won the game!", :src => "assets/images/won.gif"}/
-            %hr.mb-4/
-            %a.btn.btn-primary.btn-lg{:href => "/", :role => "button"}= I18n.t('win_page.play_again')
-            %a.btn.btn-success.btn-lg.float-right{:href => "/statistics", :role => "button"}= I18n.t('statistics')
-            - @session.clear
+.row
+  .col.button
+    %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
+      = I18n.t('game_page.level')
+      %span.badge.badge-light
+        = @request.session[:difficulty].level[:level].capitalize
+    %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
+      = I18n.t('win_page.attempts_left')
+      %span.badge.badge-light
+        = @request.session[:difficulty].level[:attempts] - @request.session[:game].used_attempts
+    %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
+      = I18n.t('win_page.hints_left')
+      %span.badge.badge-light
+        = @request.session[:difficulty].level[:hints] - @request.session[:game].used_hints
+%hr.mb-4/
+.row
+  .text-center
+    .text-center
+      %h3.text-white
+        = I18n.t('win_page.congratulations', name: @request.session[:player].name)
+    %img.img-fluid{:alt => "You won the game!", :src => "assets/images/won.gif"}/
+%hr.mb-4/
+%a.btn.btn-primary.btn-lg{:href => "/", :role => "button"}= I18n.t('win_page.play_again')
+%a.btn.btn-success.btn-lg.float-right{:href => "/statistics", :role => "button"}= I18n.t('statistics')
+- @session.clear

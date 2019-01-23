@@ -43,7 +43,7 @@ class ActiveMode
   def win
     return redirect(:game) unless game_deactivated?
 
-    Codebreaker::Statistic.new.save(@session.get(:player), @game)
+    save_statistics
     response_view(:win)
   end
 
@@ -78,13 +78,8 @@ class ActiveMode
     validate(@guess, :guess)
   end
 
-  def deactivate_game(route)
-    @session.set(:game_inactive, true)
-    redirect(route)
-  end
-
-  def game_deactivated?
-    @session.get(:game_inactive) == true
+  def save_statistics
+    Codebreaker::Statistic.new.save(@session.get(:player), @game)
   end
 
   def validate(entity, session_argument)
@@ -98,5 +93,14 @@ class ActiveMode
 
   def valid_credentials?
     @errors.empty?
+  end
+
+  def deactivate_game(route)
+    @session.set(:game_inactive, true)
+    redirect(route)
+  end
+
+  def game_deactivated?
+    @session.get(:game_inactive) == true
   end
 end
