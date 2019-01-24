@@ -4,7 +4,7 @@
 = render_partial(:short_description)
 = render_partial(:errors)
 = render_partial(:game_statistics)
-%form{:action => "/guess", :method => "post"}
+%form{:action => CodebreakerRoute::ROUTES[:guess], :method => "post"}
   .form-group
     %input.form-control.guess_input{:autocomplete => "off", :name => "guess_code", :autofocus => true}/
   .form-group.guess_markers_list
@@ -19,7 +19,7 @@
         %button.btn.btn-danger.marks{:disabled => "disabled", :type => "button"}= ActiveMode::NO_MATCH
   %hr.mb-4/
   %button.btn.btn-primary.btn-lg{:type => "submit"}= I18n.t('buttons.submit')
-  %a{class: "btn btn-warning btn-lg float-right #{'disabled' if @session.get(:game).hints_available?}", href: "/hint", role: "button"}
+  %a{class: "btn btn-warning btn-lg float-right #{'disabled' if @session.get(:game).hints_available?}", href: CodebreakerRoute::ROUTES[:hint], role: "button"}
     = I18n.t('buttons.hint')
     - if @session.present?(:hints)
       - @session.get(:hints).each do |hint|

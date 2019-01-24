@@ -8,6 +8,6 @@
         = I18n.t('lose_page.code', code: @session.get(:game).secret_code.join)
     %img.img-fluid{:alt => "You lose the game!", :src => "assets/images/lost.gif"}/
 %hr.mb-4/
-%a.btn.btn-primary.btn-lg{:href => "/", :role => "button"}= I18n.t('buttons.play_again')
-%a.btn.btn-success.btn-lg.float-right{:href => "/statistics", :role => "button"}= I18n.t('buttons.statistics')
+= render_partial(:play_again_btn)
+= render_partial(:statistics_btn)
 - @session.clear

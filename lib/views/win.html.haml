@@ -6,6 +6,6 @@
         = I18n.t('win_page.win_msg', name: @session.get(:player).name)
     %img.img-fluid{:alt => "You won the game!", :src => "assets/images/won.gif"}/
 %hr.mb-4/
-%a.btn.btn-primary.btn-lg{:href => "/", :role => "button"}= I18n.t('buttons.play_again')
-%a.btn.btn-success.btn-lg.float-right{:href => "/statistics", :role => "button"}= I18n.t('buttons.statistics')
+= render_partial(:play_again_btn)
+= render_partial(:statistics_btn)
 - @session.clear
