@@ -1,0 +1,11 @@
+= render_partial(:game_statistics)
+.row
+  .text-center
+    .text-center
+      %h3.text-white
+        = I18n.t('win_page.win_msg', name: @session.get(:player).name)
+    %img.img-fluid{:alt => "You won the game!", :src => "assets/images/won.gif"}/
+%hr.mb-4/
+= render_partial(:play_again_btn)
+= render_partial(:statistics_btn)
+- @session.clear

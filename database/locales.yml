@@ -1,0 +1,67 @@
+en:
+  tab_title: Codebreaker Web
+  game_title: Codebreaker %{year}
+  short_description: Try to guess %{secret_code_length}-digit number, that consists of numbers in a range from %{min_value} to %{max_value}
+
+  index_page:
+    player_name: "Player's name:"
+    game_level: "Game level:"
+    attempts: attempts
+    hints: hints
+
+  game_page:
+    greeting: Hello, %{name}!
+
+  win_page:
+    win_msg: Congratulations, %{name}! You won the game!
+
+  lose_page:
+    lose_msg: Oops, %{name}! You lose the game!
+    code: The code was %{code}
+
+  rules_page:
+    title: Rules
+    description:
+      Codebreaker is a logic game in which a code-breaker tries to break a secret code created by a code-maker. <br>
+      The codemaker, which will be played by the application we’re going to write,
+      creates a secret code of four numbers between 1 and 6. <br>
+      The codebreaker gets some number of chances to break the code (depends on chosen difficulty). <br>
+      In each turn, the codebreaker makes a guess of 4 numbers. <br>
+      The codemaker then marks the guess with up to 4 signs - + or - or empty spaces. <br>
+
+  statistics_page:
+    top: "Top of Players:"
+    empty: There are no winners yet! Be the first!
+
+  game_statistics:
+    level: "Level:"
+    attempts: "Attempts:"
+    hints: "Hints:"
+
+  buttons:
+    start_game: Start the game!
+    rules: Rules
+    statistics: Statistics
+    submit: Submit
+    hint: Take a hint!
+    home: Home
+    play_again: Play again!
+
+  placeholders:
+    player_name: Enter your name
+    game_level: Choose game level
+
+  table:
+    hashtag: "#"
+    name: Name
+    level: Level
+    total_attempts: Total attempts
+    used_attempts: Used atempts
+    total_hints: Total hints
+    used_hints: Used hints
+
+  error:
+    player_name_length: Player name length min - %{min_length}, max - %{max_length}
+    unexpected_difficulty: You have passed unexpected difficulty. Please choose one from listed difficulties.
+    secret_code_length: Required %{code_length} elements!
+    secret_code_digits_range: Each digit has to be in range %{min_value}-%{max_value}!

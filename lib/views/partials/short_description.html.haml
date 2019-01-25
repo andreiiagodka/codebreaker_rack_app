@@ -1,0 +1,5 @@
+.row
+  %p.lead.text-white-70= I18n.t('short_description',
+                                secret_code_length: Codebreaker::Game::SECRET_CODE_LENGTH,
+                                min_value: Codebreaker::Game::ELEMENT_VALUE_RANGE.min,
+                                max_value: Codebreaker::Game::ELEMENT_VALUE_RANGE.max)

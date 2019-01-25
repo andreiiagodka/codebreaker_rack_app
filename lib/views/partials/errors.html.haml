@@ -1,0 +1,7 @@
+- if @session.present?(:errors) && !@session.get(:errors).empty?
+  .row
+    .alert.alert-danger{:role => "alert"}
+      - @session.get(:errors).each do |error|
+        = error
+        %br/
+      - @session.get(:errors).clear
