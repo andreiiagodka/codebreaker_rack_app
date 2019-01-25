@@ -62,5 +62,6 @@ en:
 
   error:
     player_name_length: Player name length min - %{min_length}, max - %{max_length}
+    unexpected_difficulty: You have passed unexpected difficulty. Please choose one from listed difficulties.
     secret_code_length: Required %{code_length} elements!
     secret_code_digits_range: Each digit has to be in range %{min_value}-%{max_value}!

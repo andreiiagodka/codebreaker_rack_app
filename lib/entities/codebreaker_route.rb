@@ -5,12 +5,12 @@ class CodebreakerRoute
 
   ROUTES = {
     index: '/',
-    game: '/game',
-    win: '/win',
-    lose: '/lose',
     rules: '/rules',
     statistics: '/statistics',
     registration: '/registration',
+    win: '/win',
+    lose: '/lose',
+    game: '/game',
     hint: '/hint',
     guess: '/guess'
   }.freeze
